@@ -148,8 +148,8 @@ function Library.PlaneRayIntersection(Origin, Normal, RayOrigin, UnitRayDirectio
 end
 
 
-function Library.SphereRayIntersection(SphereCenter, SphereRadius, RayOrigin, RayDirection)
-	local RelativeOrigin = RayOrigin - SphereCenter
+function Library.SphereRayIntersection(Center, Radius, RayOrigin, RayDirection)
+	local RelativeOrigin = RayOrigin - Center
 
 	local OriginDotOrigin = RelativeOrigin:Dot(RelativeOrigin)
 	local DirectionDotOrigin = RayDirection:Dot(RelativeOrigin)
@@ -158,9 +158,9 @@ function Library.SphereRayIntersection(SphereCenter, SphereRadius, RayOrigin, Ra
 	local PassTime = -DirectionDotOrigin/DirectionDotDirection
 	local PassDistance = OriginDotOrigin - DirectionDotOrigin^2/DirectionDotDirection
 
-	if PassDistance >= SphereRadius^2 then return end
+	if PassDistance >= Radius^2 then return end
 
-	local Offset = math.sqrt((SphereRadius^2 - PassDistance)/DirectionDotDirection) -- Could remove this root
+	local Offset = math.sqrt((Radius^2 - PassDistance)/DirectionDotDirection) -- Could remove this root
 	local T1 = PassTime - Offset
 	local T2 = PassTime + Offset
 
@@ -274,8 +274,8 @@ function Library.GetBoundingBox(Parts, RelativeTo)
 end
 
 
-function Library.PointInBoundingBox(Cframe, Size, CheckPoint)
-	local Relative = (Cframe or IdentityCFrame):PointToObjectSpace(CheckPoint or IdentityVector)
+function Library.PointInBoundingBox(Cframe, Size, Point)
+	local Relative = (Cframe or IdentityCFrame):PointToObjectSpace(Point or IdentityVector)
 	local HalfSize = (Size or IdentityVector)/2
 	
 	local XRelativeIsInBounds = Math.NumberIsBetween(Relative.X, -HalfSize.X, HalfSize.X)
