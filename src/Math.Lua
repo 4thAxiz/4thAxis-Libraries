@@ -90,10 +90,7 @@ function Library.ExpandVectorToGrid(Vector, Expansion)
 	Vector = Vector or IdentityVector
 	Expansion = Expansion or 1
 
-	return Vector3.new ( 
-		Library.ExpandNumber(Vector.X, Expansion), 
-		Library.ExpandNumber(Vector.Y, Expansion), 
-		Library.ExpandNumber(Vector.Z, Expansion)
+	return Vector3.new (Library.ExpandNumber(Vector.X, Expansion), Library.ExpandNumber(Vector.Y, Expansion), Library.ExpandNumber(Vector.Z, Expansion)
 	)
 end
 
