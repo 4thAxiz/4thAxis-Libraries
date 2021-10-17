@@ -36,7 +36,7 @@ local Surfaces = {
 }
 
 
-local SomeSpin = CFrame.fromEulerAnglesXYZ(math.pi/2, 0, 0)
+local SomeSpin = CFrame.fromEulerAnglesXYZ(1.57079632679, 0, 0)
 local SomeDefaultPart = Instance.new("Part")
 
 -------------------------------------------------------------------
