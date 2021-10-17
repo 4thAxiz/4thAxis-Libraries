@@ -64,19 +64,16 @@ end
 
 function Library.GetSurfaceCFrameFromNormal(Part, Normal)
 	Part = Part or SomeDefaultPart
-	
 	local Transition = GetTranstionBetweenVectors(UpVector, Normal or IdentityVector, BackVector)
+	
 	return Part.CFrame * Transition * SomeSpin
 end
 
 
 function Library.GetSurfaceFromNormalVector(Cframe, Normal) 
 	Normal = (Cframe or IdentityCFrame):VectorToObjectSpace(Normal or IdentityVector)
-
-	local X = math.round(Normal:Dot(RightVector))
-	local Y = math.round(Normal:Dot(UpVector))
-	local Z = math.round(Normal:Dot(FrontVector))
-
+	local X, Y, Z = math.round(Normal:Dot(RightVector)), math.round(Normal:Dot(UpVector)), math.round(Normal:Dot(FrontVector))
+	
 	return Surfaces[X..","..Y..","..Z]
 end
 
@@ -84,18 +81,16 @@ end
 --------------------------------------------------------------------
 --------------------------  Reflections  ---------------------------
 --------------------------------------------------------------------
-
--- Reflects over X Axis
+-- Reflects From X Axis 
 
 function Library.ReflectCFrame(Cframe, ReflectOver)
-	
 	Cframe = Cframe or IdentityCFrame
 	ReflectOver = ReflectOver or CFrame.new()
 
 	local RelativeCFrame = ReflectOver:ToObjectSpace(Cframe)
 	local X, Y, Z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = RelativeCFrame:Components()
-
 	local Mirror = CFrame.new(-X, Y, Z, R00, -R01, -R02, -R10, R11,  R12,-R20, R21, R22)
+	
 	return ReflectOver:ToWorldSpace(Mirror)
 end
 
@@ -140,7 +135,6 @@ function Library.PlaneRayIntersection(Origin, Normal, RayOrigin, UnitRayDirectio
 
 	local RayPoint = RayOrigin - Origin
 	local Dot = UnitRayDirection:Dot(Normal)
-
 	if Dot == 0 then return end
 
 	local X = -RayPoint:Dot(Normal)/Dot
@@ -150,14 +144,12 @@ end
 
 function Library.SphereRayIntersection(Center, Radius, RayOrigin, RayDirection)
 	local RelativeOrigin = RayOrigin - Center
-
 	local OriginDotOrigin = RelativeOrigin:Dot(RelativeOrigin)
 	local DirectionDotOrigin = RayDirection:Dot(RelativeOrigin)
 	local DirectionDotDirection = RayDirection:Dot(RayDirection)
 
 	local PassTime = -DirectionDotOrigin/DirectionDotDirection
 	local PassDistance = OriginDotOrigin - DirectionDotOrigin^2/DirectionDotDirection
-
 	if PassDistance >= Radius^2 then return end
 
 	local Offset = math.sqrt((Radius^2 - PassDistance)/DirectionDotDirection) -- Could remove this root
@@ -172,12 +164,12 @@ end
 -----------------------  Bounding Boxs  ----------------------------
 --------------------------------------------------------------------
 
+-- Refractored version of: https://gist.github.com/zeux/1a67e8930df782d5474276e218831e22
 
 function Library.AxisAlignedBoxSize(Cframe, Size)
 	Cframe = Cframe or CFrame.new()
-	
 	local Inverse = Cframe:Inverse()
-
+	
 	local X = Size*Inverse.XVector
 	local Y = Size*Inverse.YVector
 	local Z = Size*Inverse.ZVector
@@ -223,7 +215,6 @@ function Library.GetChildrenInBoundingBox(Parent, RelativeTo)
 	if not Parent or not RelativeTo then return warn("No Parent sent or RelativeTo sent") end
 	
 	local Children = {}
-	
 	for _, Object in ipairs(Parent:GetDescendants()) do
 		if not Object:IsA("BasePart") then continue end
 		
