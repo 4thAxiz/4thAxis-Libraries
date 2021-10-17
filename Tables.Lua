@@ -23,7 +23,6 @@ end
 function Library.ShallowMergeTables(Table1, Table2)
 	Table1 = Table1 or {}
 	Table2 = Table2 or {}
-	
 	local Merge = table.create(#Table1 + #Table2)
 	
 	for Index = 1, #math.max(Table1, Table2) do
@@ -31,21 +30,17 @@ function Library.ShallowMergeTables(Table1, Table2)
 		
 		if ElementFromTable1 then 
 			table.insert(Merge, ElementFromTable1)
-			
 		elseif ElementFromTable2 then
 			table.insert(Merge, ElementFromTable2)
-		
 		end
-		
 	end
 end
 
 
-function Library.TableToArray(Table)
+function Library.ToArray(Table)
 	if not Table then return {} end
 	
 	local Array = {}
-	
 	for _, Element in pairs(Table) do
 		table.insert(Array, Element)
 	end
@@ -58,25 +53,22 @@ end
 ------------------------------  Sets  ------------------------------
 --------------------------------------------------------------------
 
+
 function Library.Union(Set, OtherSet)
 	Set = Set or {}
 	OtherSet = OtherSet or {}
-	
 	local UnionSet = table.create(#Set + #OtherSet)
 	
 	for Index = 1, math.max(#Set, #OtherSet) do
 		local NextElementFromSet, NextElementFromOtherSet = Set[Index], OtherSet[Index]
-
+		
 		if NextElementFromSet then 
 			table.insert(UnionSet, NextElementFromSet)
-
 		elseif NextElementFromOtherSet then
 			table.insert(UnionSet, NextElementFromOtherSet)
-
 		end
 	end
 	
-
 	return UnionSet
 end
 
@@ -84,7 +76,6 @@ end
 function Library.Intersection(Set, OtherSet)
 	Set = Set or {}
 	OtherSet = OtherSet or {}
-	
 	local Intersection = table.create(#OtherSet)
 	
 	for Index in ipairs(Set) do
@@ -95,7 +86,6 @@ function Library.Intersection(Set, OtherSet)
 	
 	return Intersection
 end
-
 
 
 
