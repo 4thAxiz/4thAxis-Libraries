@@ -8,6 +8,10 @@ local Library = {}
 ----------------------------  Tables  ------------------------------
 --------------------------------------------------------------------
 
+function Library.GetTableType(Table)
+	return #Table == 0 and "Hash" or "Array"
+end
+
 
 function Library.GetLengthOfTable(Table)
 	if not Table then return 0 end
@@ -17,6 +21,32 @@ function Library.GetLengthOfTable(Table)
 	end
 
 	return Length
+end
+
+
+function Library.ToArray(Table)
+	if not Table then return {} end
+	
+	local Array = {}
+	for _, Element in pairs(Table) do
+		table.insert(Array, Element)
+	end
+	
+	return Array
+end
+
+
+function Library.ReverseArray(Table)
+	local v = #Table
+	local i = 1
+	
+	while i < v do
+		Table[i], Table[v] = Table[v],Table[i]
+		i += 1
+		v -= 1
+	end
+	
+	return Table
 end
 
 
@@ -34,18 +64,6 @@ function Library.ShallowMergeTables(Table1, Table2)
 			table.insert(Merge, ElementFromTable2)
 		end
 	end
-end
-
-
-function Library.ToArray(Table)
-	if not Table then return {} end
-	
-	local Array = {}
-	for _, Element in pairs(Table) do
-		table.insert(Array, Element)
-	end
-	
-	return Array
 end
 
 
