@@ -16,8 +16,8 @@ local RightVector = Vector3.new(1, 0, 0)
 local LeftVector = Vector3.new(-1, 0, 0)
 local UpVector = Vector3.new(0, 1, 0)
 local DownVector = Vector3.new(0, -1, 0)
-local FrontVector = Vector3.new(0, 0, 1)
-local BackVector = Vector3.new(0, 0, -1)
+local FrontVector = Vector3.new(0, 0, -1)
+local BackVector = Vector3.new(0, 0, 1)
 
 local StudsPerMeter = 3.57
 local SpeedOfSoundMPS = 343 -- (Meters Per Second)
